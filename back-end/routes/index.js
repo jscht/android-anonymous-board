@@ -53,8 +53,17 @@ router.get("/board", async (req, res) => {
 
 /* 게시글 검색 */
 router.get("/board/:id", async(req, res) => {
+  let findPost = await model.anonyBoard.findOne({
+    where: { id: req.params.id }
+  });
+
+  let postViews = await model.anonyBoard.update(
+    { views: findPost.views + 1 },
+    { where: { id: findPost.id } }
+  );
+
   let post = await model.anonyBoard.findOne({
-    where: { title: req.params.id }
+    where: { id: findPost.id }
   });
 
   if(post != null) res.json(post)
