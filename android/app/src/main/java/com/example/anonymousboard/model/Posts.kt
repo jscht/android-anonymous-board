@@ -23,3 +23,8 @@ data class RegistModel (
     val subject: String,
     val boardPw: String,
 )
+
+data class DeleteModel (
+    val id: String,
+    val boardPw: String
+)
