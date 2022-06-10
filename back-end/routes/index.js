@@ -132,11 +132,11 @@ router.put("/revise", async(req, res) => {
 /* 게시글 삭제 */
 router.delete("/delete", async(req, res) => {
   // 비밀번호가 맞으면 게시글 삭제
-
+console.log(req.params)
   // 입력받은 정보(id 제외)
   let data = {
     id: req.body.id,
-    password: req.body.password.toString()
+    password: req.body.password
   }
 
   let postId = await model.anonyBoard.findOne({ where: {id: data.id} })

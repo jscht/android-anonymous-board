@@ -1,6 +1,6 @@
 package com.example.anonymousboard.api
 
-//import com.example.anonymousboard.model.Post
+import androidx.lifecycle.LiveData
 import com.example.anonymousboard.model.DeleteModel
 import com.example.anonymousboard.model.Posts
 import com.example.anonymousboard.model.RegistModel
@@ -18,14 +18,11 @@ interface PostsApi {
     fun getPost(@Path("id")id: Int): Call<Posts>
 
     @POST("/regist")
-    @Headers()
     fun registPost(@Body registData: RegistModel): Call<Posts>
 
     @PUT("/revise")
-    @Headers()
     fun revisePost(@Body reviseData: Posts): Call<String>
 
-    @DELETE("/delete")
-    @Headers()
-    fun deletePost(@Body deleteData: DeleteModel): Call<String>
+    @DELETE("/delete") // 그냥 보내야지
+    fun deletePost(@Body id: LiveData<Int>, password: String): Call<String>
 }
