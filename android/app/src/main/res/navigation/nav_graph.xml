@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/introFragment">
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.example.anonymousboard.ui.IntroFragment"
+        android:label="intro_fragment"
+        tools:layout="@layout/intro_fragment" >
+        <action
+            android:id="@+id/action_introFragment_to_setServerFragment"
+            app:destination="@id/setServerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setServerFragment"
+        android:name="com.example.anonymousboard.ui.SetServerFragment"
+        android:label="set_server_fragment"
+        tools:layout="@layout/set_server_fragment" >
+        <action
+            android:id="@+id/action_setServerFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="com.example.anonymousboard.ui.PostsFragment"
+        android:label="posts_fragment"
+        tools:layout="@layout/posts_fragment" >
+        <action
+            android:id="@+id/action_postsFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_postsFragment_to_registFragment"
+            app:destination="@id/registFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registFragment"
+        android:name="com.example.anonymousboard.ui.RegistFragment"
+        android:label="regist_fragment"
+        tools:layout="@layout/regist_fragment" >
+        <action
+            android:id="@+id/action_registFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteFragment"
+        android:name="com.example.anonymousboard.ui.DeleteFragment"
+        android:label="delete_fragment"
+        tools:layout="@layout/delete_fragment" >
+        <action
+            android:id="@+id/action_deleteFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.anonymousboard.ui.PostFragment"
+        android:label="post_fragment"
+        tools:layout="@layout/post_fragment" >
+        <action
+            android:id="@+id/action_postFragment_to_reviseFragment"
+            app:destination="@id/reviseFragment" />
+        <action
+            android:id="@+id/action_postFragment_to_deleteFragment"
+            app:destination="@id/deleteFragment" />
+        <action
+            android:id="@+id/action_postFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviseFragment"
+        android:name="com.example.anonymousboard.ui.ReviseFragment"
+        android:label="revise_fragment"
+        tools:layout="@layout/revise_fragment" >
+        <action
+            android:id="@+id/action_reviseFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+</navigation>

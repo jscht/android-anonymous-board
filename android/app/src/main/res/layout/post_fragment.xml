@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.PostFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/post_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="제목"
+            android:textSize="36sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/title_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="20dp"
+            android:background="#CCCCCC"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/created_img" />
+
+        <TextView
+            android:id="@+id/post_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="본문 내용"
+            app:layout_constraintStart_toStartOf="@+id/post_title"
+            app:layout_constraintTop_toBottomOf="@+id/title_line" />
+
+        <ImageView
+            android:id="@+id/created_img"
+            android:layout_width="20dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_access_time_24"
+            app:layout_constraintStart_toStartOf="@+id/post_title"
+            app:layout_constraintTop_toBottomOf="@+id/post_title" />
+
+        <TextView
+            android:id="@+id/post_created"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginStart="6dp"
+            android:text="작성 시간"
+            app:layout_constraintStart_toEndOf="@+id/created_img"
+            app:layout_constraintTop_toTopOf="@+id/created_img" />
+
+        <ImageView
+            android:id="@+id/views_img"
+            android:layout_width="20dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_remove_red_eye_24"
+            app:layout_constraintStart_toEndOf="@+id/created_img"
+            app:layout_constraintTop_toBottomOf="@+id/post_title" />
+
+        <TextView
+            android:id="@+id/post_views"
+            android:layout_width="51dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="6dp"
+            android:text="조회 수"
+            app:layout_constraintStart_toEndOf="@+id/views_img"
+            app:layout_constraintTop_toTopOf="@+id/views_img" />
+
+        <ImageButton
+            android:id="@+id/revise_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200dp"
+            android:layout_marginBottom="100dp"
+            android:contentDescription="@string/app_name"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_baseline_border_color_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@string/app_name"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_baseline_delete_24"
+            app:layout_constraintStart_toEndOf="@+id/revise_btn"
+            app:layout_constraintTop_toTopOf="@+id/revise_btn" />
+
+        <ImageButton
+            android:id="@+id/return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:contentDescription="@string/app_name"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_baseline_view_list_24"
+            app:layout_constraintStart_toEndOf="@+id/delete_btn"
+            app:layout_constraintTop_toTopOf="@+id/revise_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
