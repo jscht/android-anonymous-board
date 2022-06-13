@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -45,6 +45,26 @@ class PostsFragment : Fragment() {
         Log.i("wqewq", model.post.value.toString())
         loadData()
 
+        var spn: Spinner = binding.spinnerList.spnList
+        var spn_adapter = this@PostsFragment.context?.let {
+            ArrayAdapter.createFromResource(it, R.array.order_item, android.R.layout.simple_spinner_item)
+        }
+        spn_adapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spn.setAdapter(spn_adapter)
+        var currentOrder: String = ""
+        spn.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                Log.i("w", spn.selectedItem.toString())
+                if(spn.selectedItem.toString() == "시간순")
+                    currentOrder = ""
+                else if (spn.selectedItem.toString() == "조회순")
+                    currentOrder = "views"
+            }
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
         adapter.setOnItemClickListener{
             Log.i("onViewCreated adapter", "on")
             val postData = adapter.getData(it)
@@ -56,39 +76,34 @@ class PostsFragment : Fragment() {
         var editText: EditText = binding.searchBarLayout.findViewById(R.id.search_text_view)
         editText.setOnEditorActionListener { textView, i, keyEvent ->
             val searchText: String = textView.text.toString()
-            if (searchText.isEmpty()) {
-                Toast.makeText(this.context , "검색어를 입력해주세요", Toast.LENGTH_SHORT).show();
-                textView.clearFocus();
-                textView.setFocusableInTouchMode(true);
-
-                true
-            } else {
-                // 검색어를 통한 조회 searchText
-                val request = JsServer.postsApi.getPosts(keyword = searchText, order = "")
-                request.enqueue(object: Callback<List<Posts>> {
-                    override fun onFailure(call: Call<List<Posts>>, t: Throwable) {
-                        Log.d("http error",t.toString())
-                    }
-                    override fun onResponse(call: Call<List<Posts>>, response: Response<List<Posts>>) {
-                        if(response.isSuccessful) {
-                            response.body()?.let {
-                                adapter.setData(it)
-                                Log.d("onRESPONSE", "Response: ${response.body()}")
+            // 검색어를 통한 조회 searchText
+            Log.i("chk", "$searchText, $currentOrder")
+            val request = JsServer.postsApi.getPosts(keyword = searchText, order = currentOrder)
+            request.enqueue(object: Callback<List<Posts>> {
+                override fun onFailure(call: Call<List<Posts>>, t: Throwable) {
+                    Log.d("http error",t.toString())
+                }
+                override fun onResponse(call: Call<List<Posts>>, response: Response<List<Posts>>) {
+                    if(response.isSuccessful) {
+                        response.body()?.let {
+                            if(it.size == 0) {
+                                Toast.makeText(this@PostsFragment.context, "조회된 게시글이 없습니다.", Toast.LENGTH_SHORT).show()
                             }
-                        } else {
-                            Toast.makeText(this@PostsFragment.context, "조회된 게시글이 없습니다.", Toast.LENGTH_SHORT).show()
-                            Log.d("onRESPONSE", "Response: ${response.code()}")
+                            adapter.setData(it)
                         }
+                    } else {
+                        Log.d("onRESPONSE", "Response: ${response.code()}")
                     }
-                })
+                }
+            })
 
-                textView.clearFocus();
-                textView.setText("");
-                textView.setFocusableInTouchMode(true);
-                textView.setFocusable(true);
+            textView.clearFocus();
+            textView.setText("");
+            textView.clearFocus();
+            textView.setFocusableInTouchMode(true);
+            textView.setFocusable(true);
 
-                false
-            }
+            false
         }
 
 

@@ -38,9 +38,8 @@ router.get("/board", async (req, res) => {
           where: { title: {
             [Op.like]: `%${req.query.keyword}%`
           } },
-          order: [["views", "desc"]]
+          order: [["views", ""]]
         });
-        console.log(posts)
       } else {
         posts = await model.anonyBoard.findAll({
           where: { title: {
@@ -48,7 +47,6 @@ router.get("/board", async (req, res) => {
           } },
           order: [["created", "desc"]]
         });
-        console.log(posts)
       }
 
     } else return res.send("조회된 게시글이 존재하지 않습니다.")
