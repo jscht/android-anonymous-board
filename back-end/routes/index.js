@@ -82,20 +82,30 @@ router.post("/regist", async(req, res) => {
   })
   // console.log(posting)
 
-  if(posting != null) res.send("게시글이 정상적으로 등록되었습니다.");
-  else res.send("게시글 등록에 실패했습니다.");
+  if(posting != null) {
+    res.json({
+      msg: "게시글이 정상적으로 등록되었습니다.",
+      reqState: true
+    })
+  } else {
+    res.json({
+      msg: "게시글 등록에 실패했습니다.",
+      reqState: false
+    })
+  }
 });
 
 /* 게시글 수정 정보 */
 router.get("/revise/:postId", async(req, res) => {
   // 비밀 번호가 맞으면 제목, 본문 수정 가능
   // 게시글이 수정되어도 조회수는 변하지 않음.
+  console.log(req.params)
   let post = await model.anonyBoard.findOne({
     where: { id: parseInt(req.params.postId) }
   });
 
   res.json({
-    id: post.id,
+    id: parseInt(post.id),
     title: post.title,
     subject: post.subject,
   })
@@ -105,11 +115,12 @@ router.get("/revise/:postId", async(req, res) => {
 /* 게시글 수정 */
 router.put("/revise", async(req, res) => {
   // 입력받은 정보(id 제외)
+  // console.log(req.body)
   let data = {
-    id: req.body.id,
+    id: parseInt(req.body.id),
     title: req.body.title,
     subject: req.body.subject,
-    password: req.body.password.toString()
+    password: req.body.boardPw.toString()
   }
 
   let postId = await model.anonyBoard.findOne({ where: {id: data.id} })
@@ -122,21 +133,36 @@ router.put("/revise", async(req, res) => {
       { where: { id: data.id } }
     );
     
-    if(result != null) res.send("게시글 내용이 정상적으로 수정되었습니다.")
-    else res.send("게시글 내용을 수정하는데 문제가 발생하였습니다.")
+    if(result != null) {
+      res.json({
+        msg: "게시글 내용이 정상적으로 수정되었습니다.",
+        reqState: true
+      })
+    }
+    else {
+      res.json({
+        msg: "게시글 내용을 수정하는데 문제가 발생하였습니다.",
+        reqState: false
+      })
+    }
 
-  } else res.send("비밀번호가 일치하지 않습니다.")
+  } else {
+    res.json({
+      msg: "비밀번호가 일치하지 않습니다.",
+      reqState: false
+    })
+  }
 
 });
 
 /* 게시글 삭제 */
 router.delete("/delete", async(req, res) => {
   // 비밀번호가 맞으면 게시글 삭제
-console.log(req.params)
+console.log(req.query)
   // 입력받은 정보(id 제외)
   let data = {
-    id: req.body.id,
-    password: req.body.password
+    id: parseInt(req.query.id),
+    password: req.query.password
   }
 
   let postId = await model.anonyBoard.findOne({ where: {id: data.id} })
@@ -148,10 +174,25 @@ console.log(req.params)
       where: { id: data.id }
     });
     
-    if(result != null) res.send("게시글이 정상적으로 삭제되었습니다.")
-    else res.send("게시글을 삭제하는데 문제가 발생하였습니다.")
+    if(result != null) {
+      res.json({
+        msg: "게시글이 정상적으로 삭제되었습니다.",
+        reqState: true
+      })
+    }
+    else {
+      res.json({
+        msg: "게시글을 삭제하는데 문제가 발생하였습니다.",
+        reqState: false
+      })
+    }
 
-  } else res.send("비밀번호가 일치하지 않습니다.")
+  } else {
+    res.json({
+      msg: "비밀번호가 일치하지 않습니다.",
+      reqState: false
+    })
+  }
 
 });
 

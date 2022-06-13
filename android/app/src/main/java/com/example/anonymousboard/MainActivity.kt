@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 }
 
 class PostsViewModel: ViewModel() {
-    val error = MutableLiveData<String>()
     private var _postId = MutableLiveData<Int>()
 
     private val list = mutableListOf<Posts>()
@@ -48,7 +47,7 @@ class PostsViewModel: ViewModel() {
     fun setPost(item: Posts) {
         list.add(item)
         _post.value = list
-        Log.i("asd","${_post.value}")
+        Log.i("setPost","${_post.value}")
     }
 
     override fun onCleared() {

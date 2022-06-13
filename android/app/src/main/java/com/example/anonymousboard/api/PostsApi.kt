@@ -1,9 +1,6 @@
 package com.example.anonymousboard.api
 
-import androidx.lifecycle.LiveData
-import com.example.anonymousboard.model.DeleteModel
-import com.example.anonymousboard.model.Posts
-import com.example.anonymousboard.model.RegistModel
+import com.example.anonymousboard.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -18,11 +15,17 @@ interface PostsApi {
     fun getPost(@Path("id")id: Int): Call<Posts>
 
     @POST("/regist")
-    fun registPost(@Body registData: RegistModel): Call<Posts>
+    fun registPost(@Body registData: RegistModel): Call<ResultMessage>
+
+    @GET("/revise/{postId}")
+    fun revisePostInfo(@Path("postId") id: String): Call<ReviseInfoModel>
 
     @PUT("/revise")
-    fun revisePost(@Body reviseData: Posts): Call<String>
+    fun revisePost(@Body reviseData: ReviseModel): Call<ResultMessage>
 
-    @DELETE("/delete") // 그냥 보내야지
-    fun deletePost(@Body id: LiveData<Int>, password: String): Call<String>
+    @DELETE("/delete")
+    fun deletePost(
+        @Query("id") id: String,
+        @Query("password") password: String
+    ): Call<ResultMessage>
 }

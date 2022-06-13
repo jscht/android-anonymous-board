@@ -39,6 +39,7 @@ class PostsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.rvSample.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvSample.adapter = adapter // 어댑터에서 불러오기
+        Log.i("wqewq", model.post.value.toString())
         loadData()
 
         adapter.setOnItemClickListener{

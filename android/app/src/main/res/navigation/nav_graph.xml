@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_deleteFragment_to_postsFragment"
             app:destination="@id/postsFragment" />
+        <action
+            android:id="@+id/action_deleteFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -76,5 +79,8 @@
         <action
             android:id="@+id/action_reviseFragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_reviseFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
     </fragment>
 </navigation>

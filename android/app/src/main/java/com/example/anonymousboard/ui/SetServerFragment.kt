@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.anonymousboard.R
 import com.example.anonymousboard.api.JsServer
+import com.example.anonymousboard.api.TaskServer
 import com.example.anonymousboard.databinding.SetServerFragmentBinding
 
 class SetServerFragment : Fragment() {
@@ -28,7 +29,7 @@ class SetServerFragment : Fragment() {
         binding.setServerButton.setOnClickListener {
             Log.i("serverJusoData", binding.inputServerJuso.text.toString())
 
-            JsServer.inputIP = binding.inputServerJuso.text.toString()
+            //TaskServer().setIP(binding.inputServerJuso.text.toString())
             Log.i("server", JsServer.url)
             findNavController().navigate(R.id.action_setServerFragment_to_postsFragment)
         }
