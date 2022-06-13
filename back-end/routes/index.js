@@ -38,7 +38,7 @@ router.get("/board", async (req, res) => {
           where: { title: {
             [Op.like]: `%${req.query.keyword}%`
           } },
-          order: [["views", ""]]
+          order: [["views", "desc"]]
         });
       } else {
         posts = await model.anonyBoard.findAll({

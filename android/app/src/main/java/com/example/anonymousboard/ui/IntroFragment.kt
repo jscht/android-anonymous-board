@@ -24,7 +24,7 @@ class IntroFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.introLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_introFragment_to_setServerFragment)
+            findNavController().navigate(R.id.action_introFragment_to_postsFragment)
         }
     }
 
@@ -32,5 +32,4 @@ class IntroFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

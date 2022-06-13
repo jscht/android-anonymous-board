@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_introFragment_to_setServerFragment"
             app:destination="@id/setServerFragment" />
+        <action
+            android:id="@+id/action_introFragment_to_postsFragment"
+            app:destination="@id/postsFragment" />
     </fragment>
     <fragment
         android:id="@+id/setServerFragment"
