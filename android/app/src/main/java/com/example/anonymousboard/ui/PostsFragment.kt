@@ -4,6 +4,9 @@ import com.example.anonymousboard.R
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -50,6 +53,48 @@ class PostsFragment : Fragment() {
             findNavController().navigate(R.id.action_postsFragment_to_postFragment)
         }
 
+        var editText: EditText = binding.searchBarLayout.findViewById(R.id.search_text_view)
+        editText.setOnEditorActionListener { textView, i, keyEvent ->
+            val searchText: String = textView.text.toString()
+            if (searchText.isEmpty()) {
+                Toast.makeText(this.context , "검색어를 입력해주세요", Toast.LENGTH_SHORT).show();
+                textView.clearFocus();
+                textView.setFocusableInTouchMode(true);
+
+                true
+            } else {
+                // 검색어를 통한 조회 searchText
+                val request = JsServer.postsApi.getPosts(keyword = searchText, order = "")
+                request.enqueue(object: Callback<List<Posts>> {
+                    override fun onFailure(call: Call<List<Posts>>, t: Throwable) {
+                        Log.d("http error",t.toString())
+                    }
+                    override fun onResponse(call: Call<List<Posts>>, response: Response<List<Posts>>) {
+                        if(response.isSuccessful) {
+                            response.body()?.let {
+                                adapter.setData(it)
+                                Log.d("onRESPONSE", "Response: ${response.body()}")
+                            }
+                        } else {
+                            Toast.makeText(this@PostsFragment.context, "조회된 게시글이 없습니다.", Toast.LENGTH_SHORT).show()
+                            Log.d("onRESPONSE", "Response: ${response.code()}")
+                        }
+                    }
+                })
+
+                textView.clearFocus();
+                textView.setText("");
+                textView.setFocusableInTouchMode(true);
+                textView.setFocusable(true);
+
+                false
+            }
+        }
+
+
+
+
+
         binding.registButton.setOnClickListener {
             findNavController().navigate(R.id.action_postsFragment_to_registFragment)
         }
@@ -58,31 +103,6 @@ class PostsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        //inflater.inflate(androidx.core.R.menu.example_menu, menu);
-
-        val keyword = menu.findItem(R.id.search_view)
-        val searchView: SearchView = keyword.getActionView() as SearchView
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return try {
-                    Log.d("keyword", keyword.toString())
-                    Log.d("onQueryText", searchView.toString())
-                    searchView.clearFocus()
-                    true
-                } catch (e: Exception) {
-                    Log.d("error", e.message!!)
-                    false
-                }
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
     }
 
     private fun loadData() {
@@ -117,13 +137,13 @@ class PostsFragment : Fragment() {
         if (isLoading) {
             binding.sflSample.startShimmer()
             binding.registButton.visibility = View.GONE
-            binding.searchBarView.searchView.visibility = View.GONE
+            binding.searchBarLayout.visibility = View.GONE
             binding.sflSample.visibility = View.VISIBLE
             binding.rvSample.visibility = View.GONE
         } else {
             binding.sflSample.stopShimmer()
             binding.registButton.visibility = View.VISIBLE
-            binding.searchBarView.searchView.visibility = View.VISIBLE
+            binding.searchBarLayout.visibility = View.VISIBLE
             binding.sflSample.visibility = View.GONE
             binding.rvSample.visibility = View.VISIBLE
         }

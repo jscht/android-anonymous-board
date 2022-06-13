@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 let model = require("../models");
+const sequelize = require("sequelize");
+const Op = sequelize.Op;
 
 /* 전체 게시글 조회 */
 router.get("/board", async (req, res) => {
@@ -16,7 +18,7 @@ router.get("/board", async (req, res) => {
     if (posts.legnth != 0){
       if(req.query.order == "views"){
         posts = await model.anonyBoard.findAll({
-          order: [["views", "asc"]]
+          order: [["views", "desc"]]
         });
       } else {
         posts = await model.anonyBoard.findAll({
@@ -33,14 +35,20 @@ router.get("/board", async (req, res) => {
     if (posts.legnth != 0){
       if(req.query.order == "views"){
         posts = await model.anonyBoard.findAll({
-          where: { title: req.query.keyword },
-          order: [["views", "asc"]]
+          where: { title: {
+            [Op.like]: `%${req.query.keyword}%`
+          } },
+          order: [["views", "desc"]]
         });
+        console.log(posts)
       } else {
         posts = await model.anonyBoard.findAll({
-          where: { title: req.query.keyword },
+          where: { title: {
+            [Op.like]: `%${req.query.keyword}%`
+          } },
           order: [["created", "desc"]]
         });
+        console.log(posts)
       }
 
     } else return res.send("조회된 게시글이 존재하지 않습니다.")
