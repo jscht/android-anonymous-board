@@ -30,7 +30,7 @@
 
         <EditText
             android:id="@+id/search_text_view"
-            android:layout_width="210dp"
+            android:layout_width="190dp"
             android:layout_height="47dp"
             android:background="@drawable/searchview_background"
             android:contextClickable="true"
