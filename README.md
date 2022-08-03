@@ -7,4 +7,4 @@
 Android Studio, VSCode, Node.js   
 
 ## 사용된 언어
-Kotlin, Javascrip
+Kotlin, Javascript
