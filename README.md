@@ -4,6 +4,6 @@
 간단 모바일 익명 게시판입니다.
 
 ## 2. 사용된 소프트웨어
-Android Studio   
+Android Studio, VSCode   
 * Kotlin   
 * Node.js
