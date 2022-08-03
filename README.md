@@ -5,5 +5,4 @@
 
 ## 2. 사용된 소프트웨어
 Android Studio, VSCode   
-* Kotlin   
-* Node.js
+Kotlin, Node.js   
