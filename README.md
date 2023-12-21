@@ -12,7 +12,6 @@
   
 ### 사용 기술 및 라이브러리 
 - Android, Kotlin
+- Jetpack, Retrofit2, Coroutine
 - Node.js, JavaScript
 - MySQL, Sequelize
-- Jetpack, Retrofit2, Coroutine
-
