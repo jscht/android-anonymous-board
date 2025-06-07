@@ -3,7 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "db:init": "sequelize-cli init",
+    "db:model": "sequelize-cli model:generate --name anonyBoard --attributes title:string,subject:string,boardPw:string,views:integer,created:string",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:seed:generate": "sequelize-cli seed:generate --name seed-anonyBoards",
+    "db:seed": "sequelize-cli db:seed:all",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
+    "db:seed:undo": "sequelize-cli db:seed:undo:all"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -13,6 +20,7 @@
     "mariadb": "^3.0.0",
     "morgan": "~1.9.1",
     "mysql2": "^3.9.8",
-    "sequelize": "^6.20.1"
+    "sequelize": "^6.20.1",
+    "sequelize-cli": "^6.4.1"
   }
 }
