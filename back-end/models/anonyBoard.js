@@ -26,7 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         created: {
             type: DataTypes.STRING,
-            // https://gurtn.tistory.com/65
             defaultValue: new Date(+ new Date() + 3240 * 10000).toISOString().replace("T", " ").replace(/\..*/, ''),
             allowNull: true
         }
@@ -39,7 +38,5 @@ module.exports = (sequelize, DataTypes) => {
         paranoid: false, // deleteAt 옵션
     });
 
-    // 조회수 증가 https://sequelize.org/docs/v6/core-concepts/model-instances/
-    // 검색어로 조회 https://victorydntmd.tistory.com/92
     return anonyBoards;
 };
